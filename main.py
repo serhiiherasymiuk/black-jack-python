@@ -1,6 +1,5 @@
 import random
 
-
 class Card:
     def __init__(self, suit, rank):
         self.suit = suit
@@ -8,6 +7,11 @@ class Card:
 
     def __str__(self):
         return f"{self.rank} of {self.suit}"
+
+class Deck:
+    def __init__(self):
+        self.cards = []
+        self.build()
 
     def build(self):
         suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
@@ -24,7 +28,6 @@ class Card:
             return self.cards.pop()
         else:
             return None
-
 
 class Hand:
     def __init__(self):
@@ -58,4 +61,15 @@ class Hand:
         return hand_str
 
 
+if __name__ == '__main__':
+    deck = Deck()
+    deck.shuffle()
 
+    player_hand = Hand()
+    player_hand.add_card(deck.deal_card())
+    player_hand.add_card(deck.deal_card())
+    player_hand.calculate_value()
+
+    print("Player's Hand:")
+    print(player_hand)
+    print("Total Value:", player_hand.value)
