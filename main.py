@@ -26,4 +26,36 @@ class Card:
             return None
 
 
+class Hand:
+    def __init__(self):
+        self.cards = []
+        self.value = 0
+
+    def add_card(self, card):
+        self.cards.append(card)
+
+    def calculate_value(self):
+        self.value = 0
+        ace_count = 0
+        for card in self.cards:
+            if card.rank.isdigit():
+                self.value += int(card.rank)
+            elif card.rank in ['Jack', 'Queen', 'King']:
+                self.value += 10
+            else:  # Ace
+                ace_count += 1
+                self.value += 11
+
+        # Adjust for aces
+        while self.value > 21 and ace_count > 0:
+            self.value -= 10
+            ace_count -= 1
+
+    def __str__(self):
+        hand_str = ""
+        for card in self.cards:
+            hand_str += str(card) + "\n"
+        return hand_str
+
+
 
